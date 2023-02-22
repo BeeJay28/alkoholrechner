@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alkoholrechner</title>
+</head>
+<body>
+<h1>Alkoholrechner</h1>
+<form action="#" th:action="@{/}" th:object="${data}" method="post">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{name}"/></td>
+            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+        </tr>
+        <tr>
+            <td>Gewicht in kg:</td>
+            <td><input type="number" min="1" max="500" th:field="*{weight}"/></td>
+            <td th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"></td>
+        </tr>
+        <tr>
+            <td>Geschlecht:</td>
+            <td>
+                <select name="gender" id="gender">
+                    <option value="MALE">Männlich</option>
+                    <option value="FEMALE">Weiblich</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Alkoholische Getränke in ml: </td>
+            <td><input type="number" min="0" max="4000" th:field="*{beer}" placeholder="Bier"/> </td>
+            <td th:if="${#fields.hasErrors('beer')}" th:errors="*{beer}"></td>
+            <td><input type="number" min="0" max="4000" th:field="*{wine}" placeholder="Wein"/> </td>
+            <td th:if="${#fields.hasErrors('wine')}" th:errors="*{wine}"></td>
+            <td><input type="number" min="0" max="4000" th:field="*{corn}" placeholder="Korn"/> </td>
+            <td th:if="${#fields.hasErrors('corn')}" th:errors="*{corn}"></td>
+            <td><input type="number" min="0" max="4000" th:field="*{vodka}" placeholder="Vodka"/> </td>
+            <td th:if="${#fields.hasErrors('vodka')}" th:errors="*{vodka}"></td>
+            <td><input type="number" min="0" max="4000" th:field="*{whiskey}" placeholder="Whiskey"/> </td>
+            <td th:if="${#fields.hasErrors('whiskey')}" th:errors="*{whiskey}"></td>
+
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Submit</button>
+            </td>
+        </tr>
+        <tr>
+            <td th:unless="${#fields.hasErrors()}">
+                <label for="result">Alkoholwert im Blut in %: </label>
+                <p id="result" th:text="${result}" ></p>
+            </td>
+        </tr>
+    </table>
+    <table border="1" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Attribute-Name</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="var : ${#vars.getVariableNames()}">
+            <td th:text="${var}"></td>
+            <td th:text="${#vars.getVariable(var)}"></td>
+        </tr>
+        </tbody>
+        <tbody>
+        <tr>
+            <td>param</td>
+            <td th:text="${#vars.getVariable('param')}"></td>
+        </tr>
+        <tr>
+            <td>session</td>
+            <td th:text="${#vars.getVariable('session')}"></td>
+        </tr>
+        <tr>
+            <td>application</td>
+            <td th:text="${#vars.getVariable('application')}"></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+</body>
+</html>
